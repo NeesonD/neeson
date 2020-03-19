@@ -28,14 +28,6 @@
             <artifactId>sentry</artifactId>
         </dependency>
         <dependency>
-            <groupId>structlog4j</groupId>
-            <artifactId>structlog4j-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>structlog4j</groupId>
-            <artifactId>structlog4j-json</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
             <version>2.3.3</version>
