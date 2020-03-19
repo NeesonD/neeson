@@ -10,6 +10,7 @@
         <module name="common" />
         <module name="oss-svc" />
         <module name="oss-api" />
+        <module name="mq" />
         <module name="sms-api" />
         <module name="distributed-lock" />
       </profile>
