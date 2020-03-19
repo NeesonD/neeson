@@ -6,7 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="neeson" />
+        <module name="sms-svc" />
+        <module name="common" />
+        <module name="oss-svc" />
+        <module name="oss-api" />
+        <module name="sms-api" />
+        <module name="distributed-lock" />
       </profile>
     </annotationProcessing>
   </component>
