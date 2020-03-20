@@ -6,6 +6,7 @@
     <file url="file://$PROJECT_DIR$/manager/distributed-lock/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/manager/distributed-lock/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/manager/mq/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/manager/mq/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/oss/oss-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/oss/oss-api/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/oss/oss-svc/src/main/java" charset="UTF-8" />
