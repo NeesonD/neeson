@@ -22,6 +22,7 @@
         <module>common</module>
         <module>oss</module>
         <module>sms</module>
+        <module>open-platform</module>
     </modules>
 
 

@@ -12,6 +12,7 @@
         <module name="oss-api" />
         <module name="mq" />
         <module name="sms-api" />
+        <module name="open-platform" />
         <module name="distributed-lock" />
       </profile>
     </annotationProcessing>
