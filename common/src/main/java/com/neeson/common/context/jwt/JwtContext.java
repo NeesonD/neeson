@@ -1,4 +1,4 @@
-package com.neeson.common.jwt;
+package com.neeson.common.context.jwt;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

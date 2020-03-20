@@ -2,8 +2,8 @@ package com.neeson.common.http.interceptor;
 
 
 import com.neeson.common.auth.AuthConstant;
-import com.neeson.common.jwt.JwtContext;
-import com.neeson.common.jwt.JwtContextService;
+import com.neeson.common.context.jwt.JwtContext;
+import com.neeson.common.context.jwt.JwtContextHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
@@ -27,11 +27,11 @@ import java.io.IOException;
 public class JwtHeaderRequestInterceptor implements ClientHttpRequestInterceptor {
 
     @Autowired
-    private JwtContextService jwtContextService;
+    private JwtContextHolder jwtContextHolder;
 
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
-        JwtContext jwtContext = jwtContextService.getJwtContext();
+        JwtContext jwtContext = jwtContextHolder.get();
         request.getHeaders().set(AuthConstant.AUTHORIZATION_HEADER, jwtContext.getToken());
         return execution.execute(request, body);
     }
