@@ -2,6 +2,7 @@ package com.neeson.mq.annotation;
 
 import com.neeson.mq.constant.RabbitMqExchangeType;
 
+import javax.validation.constraints.NotBlank;
 import java.lang.annotation.*;
 
 /**
@@ -20,11 +21,11 @@ public @interface RabbitMqBinding {
     String queue() default "";
 
     /**
-     * 不指定的时候，使用默认值
+     * 交换机
      *
      * @return
      */
-    String exchange() default "";
+    @NotBlank String exchange() default "";
 
     /**
      * 不指定的时候，默认使用 Event ClassName

@@ -13,7 +13,14 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/manager/distributed-lock/pom.xml" />
         <option value="$PROJECT_DIR$/mq/pom.xml" />
+        <option value="$PROJECT_DIR$/oss/oss-api/pom.xml" />
+        <option value="$PROJECT_DIR$/oss/oss-svc/pom.xml" />
+        <option value="$PROJECT_DIR$/oss/pom.xml" />
+        <option value="$PROJECT_DIR$/sms/pom.xml" />
+        <option value="$PROJECT_DIR$/sms/sms-api/pom.xml" />
+        <option value="$PROJECT_DIR$/sms/sms-svc/pom.xml" />
       </set>
     </option>
   </component>

@@ -4,6 +4,7 @@ import com.neeson.mq.annotation.RabbitMqBinding;
 import com.neeson.mq.constant.RabbitMqExchangeType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,15 +29,8 @@ import static com.neeson.mq.utils.AbstractRabbitMqBindingParse.*;
 public class RabbitMqBindingBeanPostProcessor implements BeanPostProcessor {
 
 
-    @Value("${defaultExchangeName}")
-    String defaultExchangeName;
-
-
-    @Value("${deadExchangeName}")
-    String deadExchangeName;
-
     @Autowired
-    AmqpAdmin amqpAdmin;
+    private AmqpAdmin amqpAdmin;
 
 
     @Override
@@ -50,14 +44,15 @@ public class RabbitMqBindingBeanPostProcessor implements BeanPostProcessor {
             if (rabbitMqBinding.openDeadQueue()) {
                 // 先绑定死信队列
                 bindRabbitQueue(
-                        deadExchangeName,
+                        resolveDeadExchange(rabbitMqBinding),
                         resolveDeadRouteKey(rabbitMqBinding, method),
                         resolveDeadQueue(rabbitMqBinding, method),
                         RabbitMqExchangeType.TOPIC);
                 // 再绑定延迟队列
                 bindRabbitDelayQueue(
-                        resolveExchange(rabbitMqBinding, defaultExchangeName),
+                        resolveExchange(rabbitMqBinding),
                         rabbitMqBinding.exchangeType(),
+                        resolveDeadExchange(rabbitMqBinding),
                         resolveQueue(rabbitMqBinding, method),
                         resolveRouteKeys(rabbitMqBinding, method),
                         resolveDeadRouteKey(rabbitMqBinding, method),
@@ -65,7 +60,7 @@ public class RabbitMqBindingBeanPostProcessor implements BeanPostProcessor {
                 );
             } else {
                 bindRabbitQueue(
-                        resolveExchange(rabbitMqBinding, defaultExchangeName),
+                        resolveExchange(rabbitMqBinding),
                         resolveRouteKey(rabbitMqBinding, method),
                         resolveQueue(rabbitMqBinding, method),
                         rabbitMqBinding.exchangeType());
@@ -75,8 +70,8 @@ public class RabbitMqBindingBeanPostProcessor implements BeanPostProcessor {
     }
 
 
-    public void bindRabbitDelayQueue(String exchangeName, RabbitMqExchangeType exchangeType, String delayQueueName, List<String> deadRouteKeyList, String deadRouteKey, int ttl) {
-        Queue deadQueue = declareDelayQueue(delayQueueName, deadRouteKey, ttl);
+    public void bindRabbitDelayQueue(String exchangeName, RabbitMqExchangeType exchangeType, String deadExchangeName, String delayQueueName, List<String> deadRouteKeyList, String deadRouteKey, int ttl) {
+        Queue deadQueue = declareDelayQueue(delayQueueName, deadExchangeName, deadRouteKey, ttl);
         Exchange exchange = declareExchange(exchangeType, exchangeName);
         deadRouteKeyList.forEach(routeKey -> declareRabbitQueueBinding(exchange, deadQueue, routeKey));
     }
@@ -101,7 +96,7 @@ public class RabbitMqBindingBeanPostProcessor implements BeanPostProcessor {
         } else if (RabbitMqExchangeType.TOPIC.equals(exchangeType)) {
             exchange = new TopicExchange(exchangeName);
         } else {
-            exchange = new DirectExchange(defaultExchangeName);
+            exchange = new DirectExchange(exchangeName);
         }
         amqpAdmin.declareExchange(exchange);
         return exchange;
@@ -127,7 +122,7 @@ public class RabbitMqBindingBeanPostProcessor implements BeanPostProcessor {
      * @param deadRouteKey
      * @param ttl
      */
-    private Queue declareDelayQueue(String queueName, String deadRouteKey, int ttl) {
+    private Queue declareDelayQueue(String queueName, String deadExchangeName, String deadRouteKey, int ttl) {
         Queue queue = QueueBuilder.durable(queueName)
                 //设置死信交换机
                 .withArgument("x-dead-letter-exchange", deadExchangeName)
