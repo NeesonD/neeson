@@ -23,7 +23,6 @@ import java.io.IOException;
  */
 @Slf4j
 @Order(1)
-@Component
 public class JwtHeaderRequestInterceptor implements ClientHttpRequestInterceptor {
 
     @Autowired

@@ -21,7 +21,6 @@ import java.nio.charset.Charset;
  */
 @Slf4j
 @Order(100)
-@Component
 public class LogRequestInterceptor implements ClientHttpRequestInterceptor {
 
     @Override

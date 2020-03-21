@@ -1,4 +1,4 @@
-package com.neeson.mq;
+package com.neeson.mq.bean;
 
 import com.neeson.mq.annotation.RabbitMqBinding;
 import com.neeson.mq.constant.RabbitMqExchangeType;
@@ -25,7 +25,6 @@ import static com.neeson.mq.utils.AbstractRabbitMqBindingParse.*;
  * Producer -> RoutingKey -> Exchange - BindingKey - Queue <- Consumer
  */
 @Slf4j
-@Component
 public class RabbitMqBindingBeanPostProcessor implements BeanPostProcessor {
 
 

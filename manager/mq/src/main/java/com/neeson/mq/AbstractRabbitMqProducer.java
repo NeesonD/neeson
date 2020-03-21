@@ -28,14 +28,23 @@ public abstract class AbstractRabbitMqProducer implements MqProducer, RabbitTemp
     @Autowired
     protected RabbitTemplate rabbitTemplate;
 
-    protected TraceContextHolder traceContextHolder;
+    private TraceContextHolder traceContextHolder;
 
-    protected IMessageCache messageCache = new LocalMessageCache();
+    private IMessageCache messageCache;
 
     private static final String TRACE_ID = "TRACE_ID";
 
     public AbstractRabbitMqProducer() {
         this.converter = new Jackson2JsonMessageConverter();
+        this.messageCache = new LocalMessageCache();
+    }
+
+    public void setConverter(MessageConverter converter) {
+        this.converter = converter;
+    }
+
+    public void setMessageCache(IMessageCache messageCache) {
+        this.messageCache = messageCache;
     }
 
     /**
@@ -51,6 +60,11 @@ public abstract class AbstractRabbitMqProducer implements MqProducer, RabbitTemp
         sendMessage(message, routeKey);
     }
 
+    /**
+     * 发送消息
+     * @param message
+     * @param routeKey
+     */
     public abstract void sendMessage(Message message, String routeKey);
 
     /**
@@ -68,6 +82,8 @@ public abstract class AbstractRabbitMqProducer implements MqProducer, RabbitTemp
         properties.setHeader(TRACE_ID, traceContextHolder.get().getTraceId());
         return converter.toMessage(e, properties);
     }
+
+
 
     public String getRouteKey(GenericMQEvent e) {
         return e.getClass().getSimpleName();
