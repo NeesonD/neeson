@@ -21,6 +21,13 @@ spring:
       settings:
         trace: false
         web-allow-others: false
+#  rabbitmq:
+#    host:
+#    username:
+#    password:
+#    port:
+#    virtual-host:
+
 logging:
   level:
     root: info

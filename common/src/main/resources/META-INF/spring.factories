@@ -1,1 +1,3 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.neeson.common.autoconfigure.FilterAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.neeson.common.autoconfigure.FilterAutoConfiguration,\
+com.neeson.common.autoconfigure.HttpAutoConfiguration

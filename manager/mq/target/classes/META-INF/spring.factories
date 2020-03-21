@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=org.springframework.amqp.support.converter.Jackson2JsonMessageConverter
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.neeson.mq.RabbitMqAutoConfiguration
