@@ -21,12 +21,12 @@ spring:
       settings:
         trace: false
         web-allow-others: false
-#  rabbitmq:
-#    host:
-#    username:
-#    password:
-#    port:
-#    virtual-host:
+  rabbitmq:
+    host: 119.23.18.196
+    username: root
+    password: 123456
+    port: 5672
+    virtual-host: /
 
 logging:
   level:

@@ -28,3 +28,11 @@ hs_err_pid*
 .idea
 *.iml
 
+common/target/classes/META-INF/
+common/target/generated-sources/
+manager/mq/src/test/
+manager/mq/target/classes/META-INF/mq.kotlin_module
+manager/mq/target/generated-sources/
+open-platform/account-api/target/generated-sources/
+open-platform/account-svc/src/test/
+open-platform/account-svc/target/generated-sources/

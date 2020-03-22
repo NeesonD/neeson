@@ -1,34 +1,26 @@
 package com.neeson.mq;
 
 
-import com.neeson.common.utils.IdGenerator;
+import lombok.Data;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 /**
  * Create on 2020-03-20
  *
  * @author Administrator
  */
-public abstract class GenericMQEvent<T>  {
+@Data
+public abstract class GenericMQEvent  {
+
+    public GenericMQEvent() {
+        this.messageId = UUID.randomUUID().toString();
+        this.createTime = LocalDateTime.now().toString();
+    }
 
     private String messageId;
 
     private String createTime;
-
-    private T eventSource;
-
-    private IdGenerator idGenerator;
-
-    public GenericMQEvent(T eventSource) {
-        this.eventSource = eventSource;
-        this.createTime = LocalTime.now().toString();
-        this.messageId = idGenerator.generateId();
-    }
-
-    public String getMessageId() {
-        return messageId;
-    }
-
 
 }

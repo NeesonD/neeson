@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Random;
+
 /**
  * @author neeson
  */
@@ -18,6 +20,14 @@ public class UserAddCmd {
     private String password;
 
     public User toDomain() {
-        return null;
+        User user = new User();
+        user.setId(getUserId());
+        user.setPhone(phone);
+        user.setPassword(password);
+        return user;
+    }
+
+    public Long getUserId() {
+        return new Random().nextLong();
     }
 }

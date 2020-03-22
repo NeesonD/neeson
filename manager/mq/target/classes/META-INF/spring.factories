@@ -1,1 +1,2 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.neeson.mq.RabbitMqAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.neeson.mq.RabbitMqAutoConfiguration

@@ -7,6 +7,8 @@ import org.springframework.util.Assert;
 import java.util.Map;
 import java.util.concurrent.ConcurrentSkipListMap;
 
+import static com.neeson.common.constant.LogConstant.LOG_PRE;
+
 /**
  * @author neeson
  */
@@ -19,12 +21,14 @@ public class LocalMessageCache implements IMessageCache {
 
     @Override
     public void add(GenericMQEvent event) {
+        log.info(LOG_PRE +  Thread.currentThread() .getStackTrace()[1].getMethodName() + event.getMessageId());
         Assert.hasLength(event.getMessageId(), "MQEvent MessageId not null");
         messageCache.put(event.getMessageId(), event);
     }
 
     @Override
     public void sendSuccess(String id) {
+        log.info(LOG_PRE +  Thread.currentThread().getStackTrace()[1].getMethodName() + id);
         messageCache.remove(id);
     }
 

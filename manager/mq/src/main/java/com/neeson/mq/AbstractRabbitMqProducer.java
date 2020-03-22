@@ -28,6 +28,7 @@ public abstract class AbstractRabbitMqProducer implements MqProducer, RabbitTemp
     @Autowired
     protected RabbitTemplate rabbitTemplate;
 
+    @Autowired
     private TraceContextHolder traceContextHolder;
 
     private IMessageCache messageCache;

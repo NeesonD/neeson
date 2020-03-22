@@ -15,20 +15,23 @@ import org.springframework.util.Assert;
 public class TraceContextHolder implements ContextHolder<TraceContext> {
 
 
-    private static TransmittableThreadLocal<TraceContext> traceContextTransmittableThreadLocal = new TransmittableThreadLocal<TraceContext>();
+    private static TransmittableThreadLocal<TraceContext> traceContextTransmittableThreadLocal = new TransmittableThreadLocal<>();
 
 
+    @Override
     public void set(TraceContext traceContext) {
         Assert.notNull(traceContext, "traceContext 不能为空");
         traceContextTransmittableThreadLocal.set(traceContext);
     }
 
 
+    @Override
     public void clear() {
         traceContextTransmittableThreadLocal.remove();
     }
 
 
+    @Override
     public TraceContext get() {
         return traceContextTransmittableThreadLocal.get();
     }

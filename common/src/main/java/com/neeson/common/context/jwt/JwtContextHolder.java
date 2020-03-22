@@ -15,18 +15,21 @@ import org.springframework.util.Assert;
 public class JwtContextHolder implements ContextHolder<JwtContext> {
 
 
-    private static TransmittableThreadLocal<JwtContext> jwtContextTransmittableThreadLocal = new TransmittableThreadLocal<JwtContext>();
+    private static TransmittableThreadLocal<JwtContext> jwtContextTransmittableThreadLocal = new TransmittableThreadLocal<>();
 
 
+    @Override
     public void set(JwtContext jwtContext) {
         Assert.notNull(jwtContext, "jwt 不能为空");
         jwtContextTransmittableThreadLocal.set(jwtContext);
     }
 
+    @Override
     public JwtContext get() {
         return jwtContextTransmittableThreadLocal.get();
     }
 
+    @Override
     public void clear() {
         jwtContextTransmittableThreadLocal.remove();
     }
