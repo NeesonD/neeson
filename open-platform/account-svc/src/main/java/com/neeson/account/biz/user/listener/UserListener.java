@@ -63,9 +63,8 @@ public class UserListener {
     @RabbitListener(queues = "UserAddPostMqEvent")
     public void listenUserAddPostMqEvent(UserAddPostMqEvent event, MessageProperties messageProperties) {
         Long userId = event.getUserId();
-        Optional<User> byId = userRepository.findById(userId);
         log.error(LOG_PRE + event.toString());
-        log.error(LOG_PRE + messageProperties.getHeaders().get("TRACE_ID"));
+        log.error(LOG_PRE + messageProperties.toString());
         messageCache.complete(messageProperties.getMessageId());
     }
 

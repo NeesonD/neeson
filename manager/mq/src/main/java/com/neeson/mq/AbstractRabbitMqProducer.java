@@ -3,14 +3,12 @@ package com.neeson.mq;
 import cn.hutool.core.date.DateTime;
 import com.neeson.common.context.trace.TraceContextHolder;
 import com.neeson.mq.cache.IMessageCache;
-import com.neeson.mq.cache.LocalMessageCache;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageDeliveryMode;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
@@ -25,20 +23,14 @@ public abstract class AbstractRabbitMqProducer implements MqProducer, RabbitTemp
 
     private MessageConverter converter;
 
-    @Autowired
-    protected RabbitTemplate rabbitTemplate;
+    private IMessageCache messageCache;
 
     @Autowired
     private TraceContextHolder traceContextHolder;
 
-    private IMessageCache messageCache;
 
     private static final String TRACE_ID = "TRACE_ID";
 
-    public AbstractRabbitMqProducer() {
-        this.converter = new Jackson2JsonMessageConverter();
-        this.messageCache = new LocalMessageCache();
-    }
 
     public void setConverter(MessageConverter converter) {
         this.converter = converter;
