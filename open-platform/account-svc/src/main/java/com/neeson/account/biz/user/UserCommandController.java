@@ -4,7 +4,7 @@ import com.neeson.account.biz.user.request.UserAddRequest;
 import com.neeson.account.biz.user.service.IUserCommandService;
 import com.neeson.account.biz.user.service.cmd.UserAddCmd;
 import com.neeson.common.api.BaseResponse;
-import com.neeson.zk.service.DistributedLockByCurator;
+import com.neeson.zk.service.ZkDistributedLock;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class UserCommandController {
     @Autowired
     private IUserCommandService userCommandService;
     @Autowired
-    private DistributedLockByCurator lockByCurator;
+    private ZkDistributedLock lockByCurator;
 
     /**
      * 新增学员

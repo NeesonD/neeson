@@ -4,6 +4,8 @@ import com.neeson.account.biz.user.domain.User;
 import com.neeson.account.biz.user.response.GenericUserResponse;
 import com.neeson.account.biz.user.response.dto.UserDto;
 import com.neeson.account.biz.user.service.IUserQueryService;
+import com.neeson.common.api.BaseResponse;
+import com.neeson.zk.service.ZkDistributedLock;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +32,8 @@ public class UserQueryController {
     private IUserQueryService userQueryService;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private ZkDistributedLock lockByCurator;
 
     /**
      * 获取学员
@@ -43,5 +47,14 @@ public class UserQueryController {
         log.error(LOG_PRE + userInfo);
         User user = userQueryService.get(id);
         return new GenericUserResponse(UserDto.of(user.getPhone()));
+    }
+
+    @GetMapping("testZkLock")
+    public BaseResponse testZkLock() throws InterruptedException {
+        lockByCurator.acquireDistributedLock("neeson");
+        log.info("");
+        Thread.sleep(20000L);
+        lockByCurator.releaseDistributedLock("neeson");
+        return new BaseResponse();
     }
 }

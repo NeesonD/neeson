@@ -7,9 +7,9 @@ import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.ZooDefs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.PostConstruct;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -17,9 +17,9 @@ import java.util.concurrent.CountDownLatch;
  * @version 1.0
  * @date 2020/3/22 18:19
  */
-public class DistributedLockByCurator implements InitializingBean {
+public class ZkDistributedLock {
 
-    private static final Logger log = LoggerFactory.getLogger(DistributedLockByCurator.class);
+    private static final Logger log = LoggerFactory.getLogger(ZkDistributedLock.class);
 
     private final static String ROOT_PATH_LOCK = "rootlock";
     private CountDownLatch countDownLatch = new CountDownLatch(1);
@@ -100,8 +100,8 @@ public class DistributedLockByCurator implements InitializingBean {
     /**
      * 创建父节点，并创建永久节点
      */
-    @Override
-    public void afterPropertiesSet() {
+    @PostConstruct
+    private void initLockNameSpace() {
         curatorFramework = curatorFramework.usingNamespace("lock-namespace");
         String path = "/" + ROOT_PATH_LOCK;
         try {

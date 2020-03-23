@@ -23,6 +23,7 @@
         <module>oss</module>
         <module>sms</module>
         <module>open-platform</module>
+        <module>monitor</module>
     </modules>
 
 

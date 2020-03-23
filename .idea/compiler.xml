@@ -28,11 +28,14 @@
       <module name="account-svc" options="-parameters" />
       <module name="common" options="-parameters" />
       <module name="distributed-lock" options="-parameters" />
+      <module name="monitor" options="" />
       <module name="mq" options="-parameters" />
       <module name="oss-api" options="-parameters" />
       <module name="oss-svc" options="-parameters" />
+      <module name="rabbitmq-monitor" options="-parameters" />
       <module name="sms-api" options="-parameters" />
       <module name="sms-svc" options="-parameters" />
+      <module name="zk-spring-boot-starter" options="-parameters" />
     </option>
   </component>
 </project>

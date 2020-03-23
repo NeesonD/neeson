@@ -1,6 +1,6 @@
 package com.neeson.zk;
 
-import com.neeson.zk.service.DistributedLockByCurator;
+import com.neeson.zk.service.ZkDistributedLock;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.RetryNTimes;
@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Import;
  * @date 2020/3/22 18:19
  */
 @Configuration
-@Import(DistributedLockByCurator.class)
+@Import(ZkDistributedLock.class)
 @EnableConfigurationProperties(value = CuratorProperties.class)
 public class CuratorAutoConfiguration {
 

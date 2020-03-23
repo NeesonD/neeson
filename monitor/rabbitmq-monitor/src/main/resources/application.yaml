@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: rabbitmq-monitor
+  rabbitmq:
+    host: 119.23.18.196
+    username: root
+    password: 123456
+    port: 5672
+    virtual-host: /
+
+server:
+  port: 30001
+  tomcat:
+    uri-encoding: UTF-8
