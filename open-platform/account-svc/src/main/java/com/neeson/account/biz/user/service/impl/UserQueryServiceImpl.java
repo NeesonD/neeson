@@ -15,6 +15,7 @@ public class UserQueryServiceImpl implements IUserQueryService {
     @Autowired
     private UserRepository userRepository;
 
+    @Override
     public User get(Long userId) {
          return userRepository.findById(userId).orElse(new User());
     }

@@ -14,6 +14,7 @@
     <modules>
         <module>distributed-lock</module>
         <module>mq</module>
+        <module>zk-spring-boot-starter</module>
     </modules>
 
 
