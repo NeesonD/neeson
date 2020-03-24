@@ -8,8 +8,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 
-import java.util.Arrays;
-
 import static com.neeson.common.constant.LogConstant.LOG_PRE;
 
 /**
@@ -29,12 +27,12 @@ public class RabbitMqListenerAspect {
 
     @AfterReturning(pointcut = "pointCut(rabbitListener)")
     public void afterReturningAdvice(JoinPoint jp, RabbitListener rabbitListener) {
-        log.error(LOG_PRE + Arrays.toString(rabbitListener.queues()));
+        log.info(LOG_PRE + "消息消费成功");
     }
 
     @AfterThrowing(pointcut = "pointCut(rabbitListener)", throwing = "error")
     public void afterThrowingAdvice(Throwable error,RabbitListener rabbitListener) {
-        log.error(LOG_PRE + error.getMessage());
+        log.info(LOG_PRE + "消息消费失败");
     }
 
 }
