@@ -38,8 +38,6 @@ public class UserListener {
      */
     @EventListener
     public void sendMessage(UserAddPostEvent event) {
-        UserAddPostEventCmd source = event.getSource();
-        log.info(LOG_PRE + this.getClass().getSimpleName() + source.toString());
     }
 
 
@@ -59,9 +57,8 @@ public class UserListener {
     @RabbitListener(queues = "UserAddPostMqEvent")
     public void listenUserAddPostMqEvent(UserAddPostMqEvent event, MessageProperties messageProperties) {
         Long userId = event.getUserId();
-        log.error(LOG_PRE + event.toString());
-        log.error(LOG_PRE + messageProperties.toString());
-        messageCache.complete(messageProperties.getMessageId());
+        log.error(LOG_PRE + userId);
+        throw new RuntimeException("消费失败");
     }
 
 }

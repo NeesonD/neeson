@@ -1,5 +1,6 @@
 package com.neeson.mq;
 
+import com.neeson.mq.aop.RabbitMqListenerAspect;
 import com.neeson.mq.bean.RabbitMqBindingBeanPostProcessor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -12,4 +13,12 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @Import(RabbitMqBindingBeanPostProcessor.class)
 public class RabbitMqAutoConfiguration {
+
+
+    @Configuration
+    @Import(RabbitMqListenerAspect.class)
+    public static class AopConfiguration {
+    }
+
+
 }
