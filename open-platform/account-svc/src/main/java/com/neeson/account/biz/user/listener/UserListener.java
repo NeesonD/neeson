@@ -1,10 +1,8 @@
 package com.neeson.account.biz.user.listener;
 
-import com.neeson.account.biz.user.domain.User;
 import com.neeson.account.biz.user.event.UserAddPostEvent;
 import com.neeson.account.biz.user.event.UserAddPostMqEvent;
 import com.neeson.account.biz.user.event.cmd.UserAddPostEventCmd;
-import com.neeson.account.biz.user.event.cmd.UserAddPostMqEventCmd;
 import com.neeson.account.biz.user.rep.UserRepository;
 import com.neeson.account.mq.UserMessageCache;
 import com.neeson.mq.MqProducer;
@@ -17,8 +15,6 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
-
-import java.util.Optional;
 
 import static com.neeson.account.mq.RabbitMqConstant.USER_EXCHANGE;
 import static com.neeson.common.constant.LogConstant.LOG_PRE;

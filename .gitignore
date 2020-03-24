@@ -36,3 +36,4 @@ neeson.iml
 open-platform/account-api/target/
 open-platform/account-svc/target/classes/com/
 open-platform/account-svc/target/generated-sources/
+/manager/common-spring-boot-starter/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
