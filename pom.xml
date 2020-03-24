@@ -19,7 +19,6 @@
 
     <modules>
         <module>manager</module>
-        <module>common</module>
         <module>oss</module>
         <module>sms</module>
         <module>open-platform</module>
@@ -69,7 +68,7 @@
             <!-- Common -->
             <dependency>
                 <groupId>org.example</groupId>
-                <artifactId>common</artifactId>
+                <artifactId>common-spring-boot-starter</artifactId>
                 <version>${neeson.common.version}</version>
             </dependency>
 

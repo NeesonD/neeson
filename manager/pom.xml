@@ -12,10 +12,17 @@
     <artifactId>manager</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>distributed-lock</module>
-        <module>mq</module>
+        <module>distributed-lock-spring-boot-starter</module>
+        <module>rabbitmq-spring-boot-starter</module>
         <module>zk-spring-boot-starter</module>
+        <module>common-spring-boot-starter</module>
     </modules>
+    <dependencies>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>common-spring-boot-starter</artifactId>
+        </dependency>
+    </dependencies>
 
 
 </project>
