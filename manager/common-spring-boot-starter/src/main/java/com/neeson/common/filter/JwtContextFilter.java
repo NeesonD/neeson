@@ -34,7 +34,7 @@ public class JwtContextFilter implements Filter {
 
         HttpServletRequest request = (HttpServletRequest) servletRequest;
 
-        log.info(LOG_PRE + AuthConstant.AUTHORIZATION_HEADER + request.getHeader(AuthConstant.AUTHORIZATION_HEADER));
+//        log.info(LOG_PRE + AuthConstant.AUTHORIZATION_HEADER + request.getHeader(AuthConstant.AUTHORIZATION_HEADER));
 
         jwtContextHolder.set(JwtContext.of(UUID.randomUUID().toString()));
 

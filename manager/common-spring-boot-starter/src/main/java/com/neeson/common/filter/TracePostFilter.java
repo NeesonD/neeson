@@ -35,7 +35,7 @@ public class TracePostFilter implements Filter {
 
         String traceId = getTraceId(request);
 
-        log.info(LOG_PRE + traceId);
+//        log.info(LOG_PRE + traceId);
 
         traceContextHolder.set(TraceContext.of(traceId));
 
