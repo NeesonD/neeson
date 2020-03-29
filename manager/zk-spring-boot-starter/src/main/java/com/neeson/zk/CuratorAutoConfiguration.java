@@ -1,5 +1,6 @@
 package com.neeson.zk;
 
+import com.neeson.lock.api.aop.DistributedLockAspect;
 import com.neeson.zk.service.ZkDistributedLock;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
@@ -15,18 +16,25 @@ import org.springframework.context.annotation.Import;
  * @date 2020/3/22 18:19
  */
 @Configuration
-@Import(ZkDistributedLock.class)
+@Import({ZkDistributedLock.class})
 @EnableConfigurationProperties(value = CuratorProperties.class)
 public class CuratorAutoConfiguration {
 
 
-    @Bean(initMethod = "start")
+    @Bean(initMethod = "start", destroyMethod = "close")
     public CuratorFramework curatorFramework(CuratorProperties properties) {
-        return CuratorFrameworkFactory.newClient(
-                properties.getConnectString(),
-                properties.getSessionTimeoutMs(),
-                properties.getConnectionTimeoutMs(),
-                new RetryNTimes(properties.getRetryCount(), properties.getElapsedTimeMs()));
+        return CuratorFrameworkFactory.builder()
+                .connectString(properties.getConnectString())
+                .sessionTimeoutMs(properties.getSessionTimeoutMs())
+                .connectionTimeoutMs(properties.getConnectionTimeoutMs())
+                .retryPolicy(new RetryNTimes(properties.getRetryCount(), properties.getElapsedTimeMs()))
+                .build();
     }
+
+    @Configuration
+    @Import(DistributedLockAspect.class)
+    public static class AopConfiguration {
+    }
+
 
 }

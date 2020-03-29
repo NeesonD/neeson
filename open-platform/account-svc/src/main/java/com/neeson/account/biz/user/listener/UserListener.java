@@ -58,7 +58,7 @@ public class UserListener {
     public void listenUserAddPostMqEvent(UserAddPostMqEvent event, MessageProperties messageProperties) {
         Long userId = event.getUserId();
         log.error(LOG_PRE + userId);
-        throw new RuntimeException("消费失败");
+//        throw new RuntimeException("消费失败");
     }
 
 }

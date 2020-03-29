@@ -24,8 +24,7 @@ public class UserCommandController {
 
     @Autowired
     private IUserCommandService userCommandService;
-    @Autowired
-    private ZkDistributedLock lockByCurator;
+
 
     /**
      * 新增学员
@@ -36,10 +35,8 @@ public class UserCommandController {
     @Transactional(rollbackFor = Exception.class)
     public BaseResponse add(@RequestBody UserAddRequest request) {
         try {
-            lockByCurator.acquireDistributedLock(request.getPhone());
             userCommandService.add(UserAddCmd.of(request.getPhone(),request.getPassword()));
         } finally {
-            lockByCurator.releaseDistributedLock(request.getPhone());
         }
         return new BaseResponse();
     }

@@ -5,10 +5,11 @@ import com.neeson.account.biz.user.response.GenericUserResponse;
 import com.neeson.account.biz.user.response.dto.UserDto;
 import com.neeson.account.biz.user.service.IUserQueryService;
 import com.neeson.common.api.BaseResponse;
-import com.neeson.zk.service.ZkDistributedLock;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +34,8 @@ public class UserQueryController {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
     @Autowired
-    private ZkDistributedLock lockByCurator;
+    private CuratorFramework curatorFramework;
+
 
     /**
      * 获取学员
@@ -50,11 +52,11 @@ public class UserQueryController {
     }
 
     @GetMapping("testZkLock")
-    public BaseResponse testZkLock() throws InterruptedException {
-        lockByCurator.acquireDistributedLock("neeson");
-        log.info("");
-        Thread.sleep(20000L);
-        lockByCurator.releaseDistributedLock("neeson");
+    public BaseResponse testZkLock(int id) throws Exception {
+        InterProcessMutex interProcessMutex = new InterProcessMutex(curatorFramework,"/testZkLock2/son/" + id);
+        interProcessMutex.acquire();
+        interProcessMutex.release();
+        log.error(LOG_PRE + id);
         return new BaseResponse();
     }
 }

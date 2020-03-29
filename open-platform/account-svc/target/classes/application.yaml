@@ -28,11 +28,11 @@ spring:
     port: 5672
     virtual-host: /
     publisher-confirms: true
-    listener:
-      direct:
-        acknowledge-mode: manual
-      simple:
-        acknowledge-mode: manual
+#    listener:
+#      direct:
+#        acknowledge-mode: manual
+#      simple:
+#        acknowledge-mode: manual
   redis:
     host: 119.23.18.196
     port: 6379
