@@ -1,7 +1,7 @@
-package com.neeson.account.biz.user.event;
+package com.neeson.common.user.event;
 
-import com.neeson.account.biz.user.event.cmd.UserAddPostEventCmd;
 import com.neeson.common.event.GenericApplicationEvent;
+import com.neeson.common.user.event.cmd.UserAddPostEventCmd;
 
 public class UserAddPostEvent extends GenericApplicationEvent<UserAddPostEventCmd> {
 

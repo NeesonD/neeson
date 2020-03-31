@@ -1,11 +1,11 @@
-package com.neeson.account.biz.user.service.impl;
+package com.neeson.user.service.impl;
 
-import com.neeson.account.biz.user.domain.User;
-import com.neeson.account.biz.user.event.UserAddPostEvent;
-import com.neeson.account.biz.user.event.cmd.UserAddPostEventCmd;
-import com.neeson.account.biz.user.rep.UserRepository;
-import com.neeson.account.biz.user.service.IUserCommandService;
-import com.neeson.account.biz.user.service.cmd.UserAddCmd;
+import com.neeson.common.user.event.UserAddPostEvent;
+import com.neeson.common.user.event.cmd.UserAddPostEventCmd;
+import com.neeson.user.domain.User;
+import com.neeson.user.rep.UserRepository;
+import com.neeson.user.service.IUserCommandService;
+import com.neeson.user.service.cmd.UserAddCmd;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;

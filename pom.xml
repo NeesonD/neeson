@@ -23,6 +23,7 @@
         <module>sms</module>
         <module>open-platform</module>
         <module>monitor</module>
+        <module>business</module>
     </modules>
 
 

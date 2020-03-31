@@ -4,6 +4,7 @@ import com.neeson.common.context.jwt.JwtContextHolder;
 import com.neeson.common.context.trace.TraceContextHolder;
 import com.neeson.common.filter.JwtContextFilter;
 import com.neeson.common.filter.TracePostFilter;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 

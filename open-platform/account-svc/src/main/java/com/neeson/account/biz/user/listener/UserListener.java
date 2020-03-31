@@ -1,12 +1,12 @@
 package com.neeson.account.biz.user.listener;
 
-import com.neeson.account.biz.user.event.UserAddPostEvent;
 import com.neeson.account.biz.user.event.UserAddPostMqEvent;
-import com.neeson.account.biz.user.event.cmd.UserAddPostEventCmd;
-import com.neeson.account.biz.user.rep.UserRepository;
 import com.neeson.account.mq.UserMessageCache;
+import com.neeson.common.user.event.UserAddPostEvent;
+import com.neeson.common.user.event.cmd.UserAddPostEventCmd;
 import com.neeson.mq.MqProducer;
 import com.neeson.mq.annotation.RabbitMqBinding;
+import com.neeson.user.rep.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -47,18 +47,12 @@ public class UserListener {
      *
      * @param event
      */
-    @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void syncUser(UserAddPostEvent event) {
         UserAddPostEventCmd source = event.getSource();
         mqProducer.publishEvent(UserAddPostMqEvent.of(source.getUserId()));
     }
 
-    @RabbitMqBinding(exchange = USER_EXCHANGE)
-    @RabbitListener(queues = "UserAddPostMqEvent")
-    public void listenUserAddPostMqEvent(UserAddPostMqEvent event, MessageProperties messageProperties) {
-        Long userId = event.getUserId();
-        log.error(LOG_PRE + userId);
-//        throw new RuntimeException("消费失败");
-    }
+
 
 }

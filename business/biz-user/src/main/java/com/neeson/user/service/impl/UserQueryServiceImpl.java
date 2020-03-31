@@ -1,8 +1,8 @@
-package com.neeson.account.biz.user.service.impl;
+package com.neeson.user.service.impl;
 
-import com.neeson.account.biz.user.domain.User;
-import com.neeson.account.biz.user.rep.UserRepository;
-import com.neeson.account.biz.user.service.IUserQueryService;
+import com.neeson.user.domain.User;
+import com.neeson.user.rep.UserRepository;
+import com.neeson.user.service.IUserQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
-package com.neeson.account.biz.user.service;
+package com.neeson.user.service;
 
-import com.neeson.account.biz.user.service.cmd.UserAddCmd;
+import com.neeson.user.service.cmd.UserAddCmd;
 import org.springframework.stereotype.Service;
 
 /**

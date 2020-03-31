@@ -11,6 +11,11 @@
 
     <artifactId>account-svc</artifactId>
 
+    <properties>
+        <neeson.common.version>1.0-SNAPSHOT</neeson.common.version>
+        <biz.user.version>1.0-SNAPSHOT</biz.user.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>io.springfox</groupId>
@@ -63,6 +68,12 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>biz-user</artifactId>
+            <version>${biz.user.version}</version>
         </dependency>
     </dependencies>
 

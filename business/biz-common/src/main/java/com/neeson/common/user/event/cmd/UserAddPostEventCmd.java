@@ -1,4 +1,4 @@
-package com.neeson.account.biz.user.event.cmd;
+package com.neeson.common.user.event.cmd;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

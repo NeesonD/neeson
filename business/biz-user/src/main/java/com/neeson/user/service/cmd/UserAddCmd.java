@@ -1,6 +1,6 @@
-package com.neeson.account.biz.user.service.cmd;
+package com.neeson.user.service.cmd;
 
-import com.neeson.account.biz.user.domain.User;
+import com.neeson.user.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

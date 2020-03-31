@@ -9,16 +9,18 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>manager</artifactId>
+    <artifactId>business</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>distributed-lock-spring-boot-starter</module>
-        <module>rabbitmq-spring-boot-starter</module>
-        <module>zk-spring-boot-starter</module>
-        <module>common-spring-boot-starter</module>
-        <module>rpc-spring-boot-starter</module>
-        <module>mysql-spring-boot-starter</module>
+        <module>biz-user</module>
+        <module>biz-common</module>
     </modules>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+    </dependencies>
 
 
 </project>

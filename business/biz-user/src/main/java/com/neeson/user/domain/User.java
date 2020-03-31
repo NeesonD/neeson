@@ -1,4 +1,4 @@
-package com.neeson.account.biz.user.domain;
+package com.neeson.user.domain;
 
 import lombok.Data;
 
