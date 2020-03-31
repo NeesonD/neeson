@@ -62,3 +62,7 @@ open-platform/account-svc/target/classes/META-INF/
 open-platform/account-svc/target/maven-status/
 sms/sms-api/target/generated-sources/
 sms/sms-api/target/maven-status/
+manager/config-server-spring-boot-starter/target/classes/META-INF/
+manager/config-server-spring-boot-starter/target/generated-sources/
+open-platform/account-svc/target/classes/application.fuck
+open-platform/account-svc/target
