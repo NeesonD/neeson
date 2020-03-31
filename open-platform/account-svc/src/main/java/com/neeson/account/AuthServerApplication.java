@@ -1,6 +1,7 @@
 package com.neeson.account;
 
 import com.neeson.account.support.FullBeanNameGenerator;
+import com.neeson.config.EnableConfigServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 /**
  * @author neeson
  */
+@EnableConfigServer
 @SpringBootApplication
 public class AuthServerApplication {
 	

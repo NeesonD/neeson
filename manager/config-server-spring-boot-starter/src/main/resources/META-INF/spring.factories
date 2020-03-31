@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.neeson.config.ConfigServerAutoConfiguration
+
+org.springframework.boot.env.PropertySourceLoader=\
+com.neeson.config.env.FuckPropertySourceLoader
