@@ -12,7 +12,6 @@ import com.neeson.rpc.support.RpcService;
  *
  * @author Administrator
  */
-@RpcService(IOssRpcService.class)
 public class OssRpcService implements IOssRpcService {
     @Override
     public OssTokenResponse getOssToken(OssTokenRequest request) {

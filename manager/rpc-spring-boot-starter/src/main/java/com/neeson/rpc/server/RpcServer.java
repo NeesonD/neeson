@@ -21,6 +21,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.DependsOn;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,6 +31,7 @@ import java.util.Map;
  * @version 1.0
  * @date 2020/4/2 22:24
  */
+@DependsOn(value = "serviceRegistry")
 public class RpcServer implements ApplicationContextAware, InitializingBean {
 
     private Map<String, Object> handlerMap = new HashMap<>();
@@ -47,7 +49,19 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
+
+        new Thread(()->{
+            try {
+                start();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+
+    }
+
+    private void start() throws InterruptedException {
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
@@ -72,7 +86,6 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
         }
-
     }
 
     @Override
