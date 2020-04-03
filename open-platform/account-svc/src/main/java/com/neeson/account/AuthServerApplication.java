@@ -18,10 +18,10 @@ import org.springframework.stereotype.Component;
 public class AuthServerApplication {
 	
 	public static void main(String[] args) {
-		new SpringApplicationBuilder()
+		new SpringApplicationBuilder(AuthServerApplication.class)
 				.beanNameGenerator(new FullBeanNameGenerator())
 				.build()
-				.run(AuthServerApplication.class, args);
+				.run(args);
 	}
 
 }

@@ -29,9 +29,7 @@ public class SerializationUtil {
         Schema<T> schema = (Schema<T>) cachedSchema.get(cls);
         if (schema == null) {
             schema = RuntimeSchema.createFrom(cls);
-            if (schema != null) {
-                cachedSchema.put(cls, schema);
-            }
+            cachedSchema.put(cls, schema);
         }
         return schema;
     }

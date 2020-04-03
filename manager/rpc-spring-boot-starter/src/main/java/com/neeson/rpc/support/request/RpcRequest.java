@@ -1,6 +1,9 @@
 package com.neeson.rpc.support.request;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author daile
@@ -8,10 +11,13 @@ import lombok.Data;
  * @date 2020/4/2 22:34
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class RpcRequest {
 
     private String requestId;
-    private String className;
+    private String interfaceName;
     private String methodName;
     private Class<?>[] parameterTypes;
     private Object[] parameters;

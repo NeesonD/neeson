@@ -3,12 +3,14 @@ package com.neeson.rpc.server;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.zookeeper.CreateMode;
+import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooDefs;
-import org.springframework.context.annotation.DependsOn;
+import org.apache.zookeeper.data.Stat;
+import org.springframework.util.Assert;
 
-import java.util.concurrent.CountDownLatch;
+import java.util.Objects;
 
-import static com.neeson.rpc.common.Constant.ZK_DATA_PATH;
+import static com.neeson.rpc.common.Constant.SERVICE_ROOT_PATH;
 
 /**
  * @author daile
@@ -18,31 +20,46 @@ import static com.neeson.rpc.common.Constant.ZK_DATA_PATH;
 @Slf4j
 public class ServiceRegistry {
 
-    private CountDownLatch latch = new CountDownLatch(1);
-
-    private String registryAddress;
 
     private CuratorFramework curatorFramework;
 
-    public ServiceRegistry(String registryAddress) {
-        this.registryAddress = registryAddress;
+    public ServiceRegistry(CuratorFramework curatorFramework) {
+        this.curatorFramework = curatorFramework;
     }
 
-    public void register(String data) {
-        if (data != null) {
-            try {
-                curatorFramework
-                        .create()
-                        .creatingParentsIfNeeded()
-                        .withMode(CreateMode.EPHEMERAL_SEQUENTIAL)
-                        .withACL(ZooDefs.Ids.OPEN_ACL_UNSAFE)
-                        .forPath(ZK_DATA_PATH + data);
-            } catch (Exception e) {
-                log.error(e.getMessage(),e);
+    /**
+     * 注册服务  /service/serviceName/host+port
+     *
+     * @param serviceName
+     * @param data
+     */
+    public void register(String serviceName, String data) {
+        Assert.hasLength(data, "注册地址为空");
+        try {
+            Stat stat = curatorFramework.checkExists().forPath(SERVICE_ROOT_PATH + serviceName + "/" + data);
+            if (Objects.isNull(stat)) {
+                createNode(serviceName, data);
+            } else {
+                try {
+                    curatorFramework.delete()
+                            .forPath(SERVICE_ROOT_PATH + serviceName + "/" + data);
+                } catch (KeeperException.NoNodeException e) {
+                    createNode(serviceName, data);
+                }
             }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
         }
     }
 
+    private void createNode(String serviceName, String data) throws Exception {
+        curatorFramework
+                .create()
+                .creatingParentsIfNeeded()
+                .withMode(CreateMode.EPHEMERAL)
+                .withACL(ZooDefs.Ids.OPEN_ACL_UNSAFE)
+                .forPath(SERVICE_ROOT_PATH + serviceName + "/" + data);
+    }
 
 
 }

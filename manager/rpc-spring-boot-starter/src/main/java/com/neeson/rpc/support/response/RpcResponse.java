@@ -2,6 +2,8 @@ package com.neeson.rpc.support.response;
 
 import lombok.Data;
 
+import java.util.Objects;
+
 /**
  * @author daile
  * @version 1.0
@@ -10,10 +12,13 @@ import lombok.Data;
 @Data
 public class RpcResponse {
     private String requestId;
-    private Throwable error;
+    private Exception exception;
     private Object result;
 
-    public boolean isError() {
+    public boolean hasException() {
+        if (Objects.nonNull(exception)) {
+            return true;
+        }
         return false;
     }
 }

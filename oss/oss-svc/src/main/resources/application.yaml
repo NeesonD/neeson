@@ -1,0 +1,20 @@
+server:
+  port: 10002
+
+
+rpc:
+  server:
+    enable: true
+    host: 127.0.0.1
+    port: 40001
+    serviceName: oss-service
+  curatorProperties:
+    retryCount: 5
+    elapsedTimeMs: 5000
+    connectString: 119.23.18.196:2181
+    sessionTimeoutMs: 60000
+    connectionTimeoutMs: 5000
+
+spring:
+  application:
+    name: oss-service

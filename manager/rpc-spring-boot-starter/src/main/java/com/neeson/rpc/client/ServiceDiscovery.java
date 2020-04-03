@@ -1,13 +1,14 @@
 package com.neeson.rpc.client;
 
 import com.neeson.rpc.common.Constant;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
-import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 
-import java.util.ArrayList;
+import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -18,26 +19,47 @@ import java.util.concurrent.ThreadLocalRandom;
 @Slf4j
 public class ServiceDiscovery {
 
-    private volatile List<String> dataList = new ArrayList<>();
-
-    private String registryAddress;
+    private volatile ConcurrentHashMap<String, List<String>> serviceCache = new ConcurrentHashMap<>();
 
     private CuratorFramework curatorFramework;
+    private String[] serviceNameList;
 
-    public ServiceDiscovery(String registryAddress) throws Exception {
-        this.registryAddress = registryAddress;
+    public ServiceDiscovery(CuratorFramework curatorFramework, String[] serviceNameList) {
+        this.curatorFramework = curatorFramework;
+        this.serviceNameList = serviceNameList;
+    }
 
-
-        byte[] content = curatorFramework.getData().usingWatcher(new Watcher() {
-            @Override
-            public void process(WatchedEvent watchedEvent) {
-                System.out.println("监听器watchedEvent：" + watchedEvent);
-            }
-        }).forPath(Constant.ZK_REGISTRY_PATH + "/");
+    /**
+     * /service/serviceName/host+port
+     */
+    @PostConstruct
+    private void init() {
+        for (String serviceName : serviceNameList) {
+            resetServiceCache(serviceName);
+        }
+    }
+    private void resetServiceCache(String serviceName) {
+        log.info("resetServiceCache==>" +serviceName);
+        List<String> nodeList;
+        try {
+            nodeList = curatorFramework.getChildren()
+                    .usingWatcher((Watcher) watchedEvent -> resetServiceCache(serviceName))
+                    .forPath(Constant.SERVICE_ROOT_PATH + serviceName);
+            serviceCache.put(serviceName, nodeList);
+        } catch (Exception e) {
+            log.error(e.getMessage(),e);
+        }
 
     }
 
-    public String discover() {
+    /**
+     * 后续做 loadBalance
+     * @param serviceName
+     * @return
+     */
+    @SneakyThrows
+    public String discover(String serviceName) {
+        List<String> dataList = serviceCache.get(serviceName);
         String data = null;
         int size = dataList.size();
         if (size > 0) {

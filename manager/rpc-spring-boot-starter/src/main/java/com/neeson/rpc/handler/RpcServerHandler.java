@@ -1,4 +1,4 @@
-package com.neeson.rpc.support.handler;
+package com.neeson.rpc.handler;
 
 import com.neeson.rpc.support.request.RpcRequest;
 import com.neeson.rpc.support.response.RpcResponse;
@@ -33,14 +33,14 @@ public class RpcServerHandler extends SimpleChannelInboundHandler<RpcRequest> {
         try {
             Object result = handle(request);
             response.setResult(result);
-        } catch (Throwable t) {
-            response.setError(t);
+        } catch (Exception t) {
+            response.setException(t);
         }
         ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
     }
 
     private Object handle(RpcRequest request) throws InvocationTargetException {
-        String className = request.getClassName();
+        String className = request.getInterfaceName();
         Object serviceBean = handlerMap.get(className);
 
         Class<?> serviceClass = serviceBean.getClass();

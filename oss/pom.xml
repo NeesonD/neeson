@@ -14,6 +14,7 @@
     <modules>
         <module>oss-api</module>
         <module>oss-svc</module>
+        <module>oss-client</module>
     </modules>
 
 </project>

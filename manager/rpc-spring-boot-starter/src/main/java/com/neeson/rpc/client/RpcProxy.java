@@ -1,9 +1,12 @@
 package com.neeson.rpc.client;
 
+import com.neeson.rpc.support.ServiceName;
 import com.neeson.rpc.support.request.RpcRequest;
 import com.neeson.rpc.support.response.RpcResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cglib.proxy.Proxy;
 
+import java.lang.reflect.Method;
 import java.util.UUID;
 
 /**
@@ -11,14 +14,10 @@ import java.util.UUID;
  * @version 1.0
  * @date 2020/4/2 23:31
  */
+@Slf4j
 public class RpcProxy {
 
-    private String serverAddress;
     private ServiceDiscovery serviceDiscovery;
-
-    public RpcProxy(String serverAddress) {
-        this.serverAddress = serverAddress;
-    }
 
     public RpcProxy(ServiceDiscovery serviceDiscovery) {
         this.serviceDiscovery = serviceDiscovery;
@@ -30,31 +29,49 @@ public class RpcProxy {
                 interfaceClass.getClassLoader(),
                 new Class<?>[]{interfaceClass},
                 (proxy, method, args) -> {
-                    RpcRequest request = new RpcRequest(); // 创建并初始化 RPC 请求
-                    request.setRequestId(UUID.randomUUID().toString());
-                    request.setClassName(method.getDeclaringClass().getName());
-                    request.setMethodName(method.getName());
-                    request.setParameterTypes(method.getParameterTypes());
-                    request.setParameters(args);
+                    RpcRequest request = getRpcRequest(method, args);
 
-                    if (serviceDiscovery != null) {
-                        serverAddress = serviceDiscovery.discover(); // 发现服务
-                    }
+                    RpcClient client = getRpcClient(method);
 
-                    String[] array = serverAddress.split(":");
-                    String host = array[0];
-                    int port = Integer.parseInt(array[1]);
-
-                    RpcClient client = new RpcClient(host, port); // 初始化 RPC 客户端
-                    RpcResponse response = client.send(request); // 通过 RPC 客户端发送 RPC 请求并获取 RPC 响应
-
-                    if (response.isError()) {
-                        throw response.getError();
-                    } else {
-                        return response.getResult();
-                    }
+                    long time = System.currentTimeMillis();
+                    RpcResponse response = client.send(request,client);
+                    log.debug("time: {}ms", System.currentTimeMillis() - time);
+                    checkRpcResponse(response);
+                    return response.getResult();
                 }
         );
+    }
+
+    private void checkRpcResponse(RpcResponse response) throws Exception {
+        if (response == null) {
+            throw new RuntimeException("response is null");
+        }
+        if (response.hasException()) {
+            throw response.getException();
+        }
+    }
+
+    private RpcClient getRpcClient(Method method) {
+        String serviceName = method.getDeclaringClass().getAnnotation(ServiceName.class).value();
+
+        // 发现服务
+        String serverAddress = serviceDiscovery.discover(serviceName);
+
+        String[] array = serverAddress.split(":");
+        String host = array[0];
+        int port = Integer.parseInt(array[1]);
+
+        return new RpcClient(host, port);
+    }
+
+    private RpcRequest getRpcRequest(Method method, Object[] args) {
+        return RpcRequest.builder()
+                .interfaceName(method.getDeclaringClass().getName())
+                .methodName(method.getName())
+                .parameters(args)
+                .parameterTypes(method.getParameterTypes())
+                .requestId(UUID.randomUUID().toString())
+                .build();
     }
 
 }

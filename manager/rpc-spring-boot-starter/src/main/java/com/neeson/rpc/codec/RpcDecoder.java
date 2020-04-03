@@ -1,9 +1,9 @@
-package com.neeson.rpc.support;
+package com.neeson.rpc.codec;
 
+import com.neeson.rpc.support.SerializationUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
-import org.springframework.util.SerializationUtils;
 
 import java.util.List;
 
@@ -21,22 +21,18 @@ public class RpcDecoder extends ByteToMessageDecoder {
     }
 
     @Override
-    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
+    public void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) {
         if (in.readableBytes() < 4) {
             return;
         }
         in.markReaderIndex();
         int dataLength = in.readInt();
-        if (dataLength < 0) {
-            ctx.close();
-        }
         if (in.readableBytes() < dataLength) {
             in.resetReaderIndex();
             return;
         }
         byte[] data = new byte[dataLength];
         in.readBytes(data);
-        Object object = SerializationUtils.deserialize(data);
-        out.add(object);
+        out.add(SerializationUtil.deserialize(data, genericClass));
     }
 }
