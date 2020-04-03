@@ -1,4 +1,4 @@
-package com.neeson.rpc.codec;
+package com.neeson.rpc.handler.codec;
 
 import com.neeson.rpc.support.SerializationUtil;
 import io.netty.buffer.ByteBuf;
