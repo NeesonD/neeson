@@ -4,8 +4,7 @@ import com.neeson.oss.request.OssFileDeleteRequest;
 import com.neeson.oss.request.OssTokenRequest;
 import com.neeson.oss.response.OssFileDeleteResponse;
 import com.neeson.oss.response.OssTokenResponse;
-import com.neeson.rpc.support.RpcService;
-import com.neeson.rpc.support.ServiceName;
+import com.neeson.rpc.anno.ServiceName;
 
 /**
  * Create on 2020-04-03
@@ -13,7 +12,6 @@ import com.neeson.rpc.support.ServiceName;
  * @author Administrator
  */
 @ServiceName(value = "oss-service")
-@RpcService(value = IOssRpcService.class, serviceName = "")
 public interface IOssRpcService {
 
     /**

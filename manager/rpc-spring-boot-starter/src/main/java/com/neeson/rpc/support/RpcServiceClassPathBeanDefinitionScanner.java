@@ -1,13 +1,10 @@
 package com.neeson.rpc.support;
 
+import com.neeson.rpc.anno.RpcService;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
-import org.springframework.beans.factory.config.BeanDefinitionHolder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
-
-import java.util.Set;
 
 /**
  * @author daile
@@ -25,16 +22,6 @@ public class RpcServiceClassPathBeanDefinitionScanner extends ClassPathBeanDefin
         this.addIncludeFilter(new AnnotationTypeFilter(RpcService.class));
     }
 
-    @Override
-    public Set<BeanDefinitionHolder> doScan(String... basePackages) {
-        Set<BeanDefinitionHolder> beanDefinitions = super.doScan(basePackages);
-        for (BeanDefinitionHolder holder : beanDefinitions) {
-            GenericBeanDefinition definition = (GenericBeanDefinition) holder.getBeanDefinition();
-            definition.getPropertyValues().add("innerClassName", definition.getBeanClassName());
-            definition.setBeanClass(RpcServiceFactoryBean.class);
-        }
-        return beanDefinitions;
-    }
 
     @Override
     public boolean isCandidateComponent(AnnotatedBeanDefinition beanDefinition) {

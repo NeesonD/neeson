@@ -5,7 +5,9 @@ import com.neeson.oss.request.OssFileDeleteRequest;
 import com.neeson.oss.request.OssTokenRequest;
 import com.neeson.oss.response.OssFileDeleteResponse;
 import com.neeson.oss.response.OssTokenResponse;
+import com.neeson.rpc.anno.RpcReference;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("OssClientController")
 public class OssClientController {
 
-    @Autowired
+    @RpcReference
     private IOssRpcService ossRpcService;
 
     @GetMapping("getOssToken")

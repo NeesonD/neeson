@@ -1,4 +1,4 @@
-package com.neeson.rpc.support;
+package com.neeson.rpc.anno;
 
 
 import java.lang.annotation.Documented;
@@ -20,7 +20,5 @@ import java.lang.annotation.Target;
 public @interface RpcService {
 
     Class<?> value() default void.class;
-
-    String serviceName() default "";
 
 }

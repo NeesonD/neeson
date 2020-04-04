@@ -1,6 +1,6 @@
 package com.neeson.rpc.client;
 
-import com.neeson.rpc.support.ServiceName;
+import com.neeson.rpc.anno.ServiceName;
 import com.neeson.rpc.support.request.RpcRequest;
 import com.neeson.rpc.support.response.RpcResponse;
 import lombok.extern.slf4j.Slf4j;

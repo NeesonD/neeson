@@ -1,5 +1,6 @@
-package com.neeson.rpc.support;
+package com.neeson.rpc.support.processor;
 
+import com.neeson.rpc.support.RpcServiceClassPathBeanDefinitionScanner;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -26,19 +27,19 @@ import static org.springframework.context.annotation.AnnotationConfigUtils.CONFI
  * @date 2020/4/3 20:48
  */
 @Slf4j
-public class RpcServiceAnnotationBeanPostProcessor implements BeanDefinitionRegistryPostProcessor {
+public class RpcServiceAnnotationBeanFactoryPostProcessor implements BeanDefinitionRegistryPostProcessor {
 
     private final Set<String> packagesToScan;
 
-    public RpcServiceAnnotationBeanPostProcessor(String... packagesToScan) {
+    public RpcServiceAnnotationBeanFactoryPostProcessor(String... packagesToScan) {
         this(Arrays.asList(packagesToScan));
     }
 
-    public RpcServiceAnnotationBeanPostProcessor(Collection<String> packagesToScan) {
+    public RpcServiceAnnotationBeanFactoryPostProcessor(Collection<String> packagesToScan) {
         this(new LinkedHashSet<>(packagesToScan));
     }
 
-    public RpcServiceAnnotationBeanPostProcessor(Set<String> packagesToScan) {
+    public RpcServiceAnnotationBeanFactoryPostProcessor(Set<String> packagesToScan) {
         this.packagesToScan = packagesToScan;
     }
 

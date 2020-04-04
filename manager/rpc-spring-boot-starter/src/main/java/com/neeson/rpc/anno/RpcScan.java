@@ -1,5 +1,6 @@
-package com.neeson.rpc.support;
+package com.neeson.rpc.anno;
 
+import com.neeson.rpc.support.RpcComponentScanRegistrar;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.AliasFor;
 
@@ -13,8 +14,8 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-@Import(RpcServiceScanRegistrar.class)
-public @interface RpcServiceScan {
+@Import(RpcComponentScanRegistrar.class)
+public @interface RpcScan {
 
     @AliasFor("basePackages")
     String[] value() default {};

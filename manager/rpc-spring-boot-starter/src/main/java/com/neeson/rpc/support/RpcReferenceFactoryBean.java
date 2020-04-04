@@ -2,12 +2,13 @@ package com.neeson.rpc.support;
 
 import com.neeson.rpc.client.RpcProxy;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.FactoryBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.SpringNamingPolicy;
 import org.springframework.cglib.proxy.Enhancer;
 import org.springframework.cglib.proxy.MethodInterceptor;
 import org.springframework.cglib.proxy.MethodProxy;
+import org.springframework.context.ApplicationContext;
 
 import java.lang.reflect.Method;
 
@@ -17,18 +18,18 @@ import java.lang.reflect.Method;
  * @date 2020/4/3 22:05
  */
 @Slf4j
-public class RpcServiceFactoryBean<T> implements FactoryBean<T> {
+public class RpcReferenceFactoryBean<T> implements FactoryBean<T> {
 
     private String innerClassName;
-    public void setInnerClassName(String innerClassName) {
-        this.innerClassName = innerClassName;
-    }
-
-    @Autowired
     private RpcProxy rpcProxy;
 
+    public RpcReferenceFactoryBean(String innerClassName, BeanFactory beanFactory) {
+        this.innerClassName = innerClassName;
+        this.rpcProxy = beanFactory.getBean(RpcProxy.class);
+    }
+
     @Override
-    public T getObject() throws Exception {
+    public T getObject() throws ClassNotFoundException {
         Class innerClass = Class.forName(innerClassName);
         if (innerClass.isInterface()) {
             return (T) rpcProxy.create(innerClass);
@@ -43,7 +44,11 @@ public class RpcServiceFactoryBean<T> implements FactoryBean<T> {
 
     @Override
     public Class<?> getObjectType() {
-        return null;
+        try {
+            return Class.forName(innerClassName, true, Thread.currentThread().getContextClassLoader());
+        } catch (ClassNotFoundException e) {
+            throw new IllegalStateException(e.getMessage(), e);
+        }
     }
 
 
