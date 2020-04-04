@@ -6,7 +6,7 @@ rpc:
   curatorProperties:
     retryCount: 5
     elapsedTimeMs: 5000
-    connectString: 119.23.18.196:2181
+    connectString: 127.0.0.1:2181
     sessionTimeoutMs: 60000
     connectionTimeoutMs: 5000
 

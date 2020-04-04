@@ -2,7 +2,7 @@ spring:
   application:
     name: rabbitmq-monitor
   rabbitmq:
-    host: 119.23.18.196
+    host: 127.0.0.1
     username: root
     password: 123456
     port: 5672

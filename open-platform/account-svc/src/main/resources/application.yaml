@@ -22,21 +22,21 @@ spring:
         trace: false
         web-allow-others: false
   rabbitmq:
-    host: 119.23.18.196
+    host: 127.0.0.1
     username: root
     password: 123456
     port: 5672
     virtual-host: /
     publisher-confirms: true
   redis:
-    host: 119.23.18.196
+    host: 127.0.0.1
     port: 6379
 
 zk:
   curator:
     retryCount: 5
     elapsedTimeMs: 5000
-    connectString: 119.23.18.196:2181
+    connectString: 127.0.0.1:2181
     sessionTimeoutMs: 60000
     connectionTimeoutMs: 5000
 
