@@ -19,3 +19,13 @@
         * 每次操作，先查一下。要注意原子处理
         * 通过唯一索引
     * update 操作
+    
+#### Template 的通用设计
+
+* Operations 定义行为
+* Accessor 管理 ConnectionFactory
+* Interceptors 对消息进行过滤处理
+* Template 具体实现
+    * MessageConverter 用于编解码
+    * HeadConverter 用于头部编解码
+    * ErrorHandler 错误处理
