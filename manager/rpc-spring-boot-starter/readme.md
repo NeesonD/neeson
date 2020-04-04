@@ -7,11 +7,18 @@
 
 ![](/doc/pic/Rpc.png)
 
-[介绍](https://mubu.com/doc/6US5AgtAuT_)
+[设计](https://mubu.com/doc/6US5AgtAuT_)
 
 * oss 
     * oss-api
-    * oss-client
-    * oss-svc
+    * oss-client (客户端)
+    * oss-svc (服务端)
 * rpc-spring-boot-starter
 
+#### 启动
+
+本地安装一个 zookeeper 
+
+* run oss-svc (这个可以开多个)
+* run oss-client
+* 测试 oss-svc 中的接口即可
