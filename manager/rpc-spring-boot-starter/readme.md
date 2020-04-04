@@ -19,6 +19,10 @@
 
 本地安装一个 zookeeper 
 
+```
+windows 闪退看这个：https://blog.csdn.net/qq279862451/article/details/79083522
+```
+
 * run oss-svc (这个可以开多个)
 * run oss-client
 * 测试 oss-client 中的接口即可
