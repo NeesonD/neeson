@@ -50,7 +50,6 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-
         new Thread(()->{
             try {
                 start();
@@ -58,7 +57,6 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
                 e.printStackTrace();
             }
         }).start();
-
     }
 
     private void start() throws InterruptedException {

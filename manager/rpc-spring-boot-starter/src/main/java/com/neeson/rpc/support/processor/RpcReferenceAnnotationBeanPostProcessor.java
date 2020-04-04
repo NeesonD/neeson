@@ -18,7 +18,6 @@ import org.springframework.util.StringUtils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.*;
@@ -38,10 +37,6 @@ public class RpcReferenceAnnotationBeanPostProcessor implements InstantiationAwa
 
     private final Set<Class<? extends Annotation>> annotationTypes =
             new LinkedHashSet<Class<? extends Annotation>>();
-
-    private final Set<String> lookupMethodsChecked = Collections.newSetFromMap(new ConcurrentHashMap<>(256));
-
-    private final Map<Class<?>, Constructor<?>[]> candidateConstructorsCache = new ConcurrentHashMap<>(256);
 
     private final Map<String, InjectionMetadata> injectionMetadataCache = new ConcurrentHashMap<>(256);
 
@@ -147,7 +142,6 @@ public class RpcReferenceAnnotationBeanPostProcessor implements InstantiationAwa
 
         private final AnnotationAttributes attributes;
 
-        private volatile Object bean;
 
         protected AnnotatedFieldElement(Field field, AnnotationAttributes attributes) {
             super(field, null);
@@ -177,10 +171,9 @@ public class RpcReferenceAnnotationBeanPostProcessor implements InstantiationAwa
      * @param injectedType    the type of injected-object
      * @param injectedElement {@link InjectionMetadata.InjectedElement}
      * @return An injected object
-     * @throws Exception If getting is failed
      */
     protected Object getInjectedObject(Class<?> injectedType,
-                                       InjectionMetadata.InjectedElement injectedElement) throws Exception {
+                                       InjectionMetadata.InjectedElement injectedElement) {
 
 
         String cacheKey = buildInjectedObjectCacheKey(injectedType);

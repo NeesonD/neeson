@@ -1,6 +1,7 @@
 package com.neeson.rpc.anno;
 
 import com.neeson.rpc.support.RpcComponentScanRegistrar;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.AliasFor;
 
