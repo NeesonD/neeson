@@ -21,4 +21,8 @@
 
 * run oss-svc (这个可以开多个)
 * run oss-client
-* 测试 oss-svc 中的接口即可
+* 测试 oss-client 中的接口即可
+
+```
+http://localhost:10003/OssClientController/getOssToken
+```
