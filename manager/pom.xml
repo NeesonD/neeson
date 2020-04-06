@@ -16,7 +16,6 @@
         <module>rabbitmq-spring-boot-starter</module>
         <module>zk-spring-boot-starter</module>
         <module>common-spring-boot-starter</module>
-        <module>rpc-spring-boot-starter</module>
         <module>config-server-spring-boot-starter</module>
         <module>log-spring-boot-starter</module>
     </modules>

@@ -19,7 +19,6 @@
 
     <modules>
         <module>manager</module>
-        <module>oss</module>
         <module>open-platform</module>
         <module>monitor</module>
         <module>business</module>

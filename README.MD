@@ -42,18 +42,6 @@
 
 ### java 能力层的构建
 
-#### RPC 框架设计
-
-![](/doc/pic/Rpc.png)
-
-[介绍](https://mubu.com/doc/6US5AgtAuT_)
-
-* oss 
-    * oss-api
-    * oss-client
-    * oss-svc
-* rpc-spring-boot-starter
-
 #### rabbitmq 二次封装、可靠性投递
 
 ![](/doc/pic/MQ_Best_Practices.jpg)
@@ -91,5 +79,9 @@
 
 * [ ] 压测
 * [ ] 调优
+
+#### RPC 框架
+
+* [rpc-spring-boot-starter](https://github.com/NeesonD/rpc-demo)
 
     
