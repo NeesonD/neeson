@@ -22,21 +22,47 @@ spring:
         trace: false
         web-allow-others: false
   rabbitmq:
-    host: 127.0.0.1
+    host: 119.23.18.196
     username: root
     password: 123456
     port: 5672
     virtual-host: /
     publisher-confirms: true
   redis:
-    host: 127.0.0.1
+    host: 119.23.18.196
     port: 6379
+    ## docker run -d --name kafka0 -p 9092:9092 -e KAFKA_BROKER_ID=0 -e KAFKA_ZOOKEEPER_CONNECT=119.23.18.196:2181 -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://119.23.18.196:9092 -e KAFKA_LISTENERS=PLAINTEXT://:9092 -t wurstmeister/kafka
+  kafka:
+    bootstrap-servers: 119.23.18.196:9092
+    producer:
+      retries: 0
+      batch-size: 16384
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        linger.ms: 1
+    consumer:
+      enable-auto-commit: false
+      auto-commit-interval: 100ms
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        session.timeout.ms: 15000
+
+kafka:
+  topic:
+    group-id: 1111
+    topic-name:
+      - topic1
+      - topic2
+      - topic3
 
 zk:
   curator:
     retryCount: 5
     elapsedTimeMs: 5000
-    connectString: 127.0.0.1:2181
+    connectString: 119.23.18.196:2181
     sessionTimeoutMs: 60000
     connectionTimeoutMs: 5000
 
